@@ -1,4 +1,6 @@
 import java.sql.SQLOutput;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -27,6 +29,8 @@ public class Main {
 
 
         Scanner scan = new Scanner(System.in); // 메모리 차지 때문에 밖에다 만드는게 좋음
+        ArrayList<String> titles = new ArrayList<>();
+        ArrayList<String> contents = new ArrayList<>();
 
 
         while (true) {
@@ -40,16 +44,28 @@ public class Main {
                 break;
             } else if (command.equals("add")) {
                 System.out.print("게시물 제목을 입력해주세요.");
-                String title = scan.nextLine();
+                titles.add(scan.nextLine());
+
                 System.out.print("게시물 내용을 입력해주세요.");
-                String content = scan.nextLine();
+                contents.add(scan.nextLine());
 
                 System.out.println("게시물이 등록되었습니다.");
+
+            } else if (command.equals("list")) {
+                for (int i = 0; i < titles.size(); i++) {
+                    System.out.println("게시물" + (i + 1));
+                    System.out.println("제목" + titles.get(i));
+                    System.out.println("내용" + contents.get(i));
+                    System.out.println("===============");
+                }
+
+
+            } else if (command.equals("update")) {
+                System.out.println("수정할 게시물 번호 : ");
+                int postNum = scan.nextInt();
 
 
             }
         }
     }
 }
-
-
