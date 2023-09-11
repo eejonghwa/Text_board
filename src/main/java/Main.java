@@ -53,17 +53,27 @@ public class Main {
 
             } else if (command.equals("list")) {
                 for (int i = 0; i < titles.size(); i++) {
-                    System.out.println("게시물" + (i + 1));
-                    System.out.println("제목" + titles.get(i));
-                    System.out.println("내용" + contents.get(i));
+                    System.out.printf("번호 : %d\n", i + 1);
+                    System.out.printf("제목 : %s\n",titles.get(i));
                     System.out.println("===============");
                 }
-
-
             } else if (command.equals("update")) {
-                System.out.println("수정할 게시물 번호 : ");
-                int postNum = scan.nextInt();
+                System.out.print("수정할 게시물 번호를 입력해주세요 : ");
+                int target = scan.nextInt();
 
+                scan.nextLine();
+
+                System.out.print("새로운 제목 : ");
+                String newTitle = scan.nextLine();
+                System.out.print("새로운 내용 : ");
+                String newContent = scan.nextLine();
+
+                titles.set(target - 1, newTitle);
+                contents.set(target - 1, newContent);
+
+                System.out.println("게시물이 수정됐습니다.");
+            } else {
+                System.out.println("유효하지 않는 번호입니다.");
 
             }
         }
