@@ -82,72 +82,110 @@ public class Main {
 
             } else if (command.equals("update")) {
                 System.out.print("수정할 게시물 번호를 입력해주세요 : ");
-                int targetId = scan.nextInt();
+                String number = scan.nextLine();
+                try{
+                    int targetId = Integer.parseInt(number);
+                    scan.nextLine();
+                    boolean isExist = false;
 
-                scan.nextLine();
+                    for (int i = 0; i < articles.size(); i++) {
+                        Article article = articles.get(i);
 
-                boolean isExist = false;
+                        if (targetId == article.getId()) {
+                            System.out.print("새로운 제목 : ");
+                            String newTitle = scan.nextLine();
+                            System.out.print("새로운 내용 : ");
+                            String newContent = scan.nextLine();
 
-                for (int i = 0; i < articles.size(); i++) {
-                    Article article = articles.get(i);
+                            Article newArticle = new Article(targetId, newTitle, newContent);
 
-                    if (targetId == article.getId()) {
-                        System.out.print("새로운 제목 : ");
-                        String newTitle = scan.nextLine();
-                        System.out.print("새로운 내용 : ");
-                        String newContent = scan.nextLine();
-
-                        Article newArticle = new Article(targetId, newTitle, newContent);
-
-                        articles.set(i, newArticle);
-                        System.out.println("수정이 완료되었습니다.");
-                        isExist = true;
+                            articles.set(i, newArticle);
+                            System.out.println("수정이 완료되었습니다.");
+                            isExist = true;
+                        }
                     }
-                }
 
 
-                if (isExist == false) {
-                    System.out.println("없는 게시물입니다.");
+                    if (isExist == false) {
+                        System.out.println("없는 게시물입니다.");
+                    }
+
+                }catch (NumberFormatException e){
+                    System.out.println("숫자를 입력해주세요.");
                 }
 
             } else if (command.equals("delete")) {
                 System.out.print("삭제할 게시물 번호 : ");
-                int targetId = scan.nextInt();
+                String number = scan.nextLine();
+                try{
+                    int targetId = Integer.parseInt(number);
+                    scan.nextLine();
 
-                scan.nextLine();
+                    boolean isExist = false;
 
-                boolean isExist = false;
+                    for (int i = 0; i < articles.size(); i++) {
+                        Article article = articles.get(i);
 
-                for (int i = 0; i < articles.size(); i++) {
-                    Article article = articles.get(i);
+                        if (targetId == article.getId()) {
+                            articles.remove(i);
+                            System.out.printf("%d번 게시물이 삭제되었습니다.\n", targetId);
 
-                    if (targetId == article.getId()) {
-                        articles.remove(i);
-                        System.out.printf("%d번 게시물이 삭제되었습니다.\n", targetId);
-
-                        isExist = true;
+                            isExist = true;
+                        }
                     }
+
+                }catch (NumberFormatException e) {
+                    System.out.println("숫자를 입력해주세요.");
                 }
-            }
-            else if (command.equals("detail")) {
+
+            } else if (command.equals("detail")) {
                 System.out.print("상세보기 할 게시물 번호를 입력해주세요 : ");
-                int target = scan.nextInt();
-                scan.nextLine();
+                String number = scan.nextLine();
+                try {
+                    int target = Integer.parseInt(number);
+                    scan.nextLine();
 
-                if (0 < target && target <= articles.size()) {
-                    Article article = articles.get(target - 1);
+                    if (0 < target && target <= articles.size()) {
+                        Article article = articles.get(target - 1);
 
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
-                    String formattedDate = dateFormat.format(article.getDate());
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+                        String formattedDate = dateFormat.format(article.getDate());
 
-                    System.out.printf("제목 : %s\n", article.getTitle());
-                    System.out.printf("내용 : %s\n", article.getContent());
-                    System.out.printf("등록날짜 : %s\n", formattedDate);
-                } else {
-                    System.out.println("없는 게시물 입니다. ");
+                        System.out.printf("제목 : %s\n", article.getTitle());
+                        System.out.printf("내용 : %s\n", article.getContent());
+                        System.out.printf("등록날짜 : %s\n", formattedDate);
+                    } else {
+                        System.out.println("없는 게시물 입니다. ");
+                    }
+
+
+                }catch(NumberFormatException e){
+                    System.out.println("숫자를 입력해 주세요.");
                 }
+
+
+
             } else if (command.equals("search")) {
                 System.out.print("검색 키워드를 입력해주세요 : ");
+                String keyword = scan.nextLine();
+
+                ArrayList<Article> searchResults = new ArrayList<>();
+
+                for (Article article : articles) {
+                    if (article.getTitle().contains(keyword) || article.getContent().contains(keyword)) {
+                        searchResults.add(article);
+                    }
+                }
+                if (searchResults.isEmpty()) {
+                    System.out.println("검색 결과가 없습니다.");
+                } else {
+                    System.out.println("검색 결과 : ");
+                    for (Article result : searchResults) {
+                        System.out.printf("번호 : %d\n", result.getId());
+                        System.out.printf("제목 : %s\n", result.getTitle());
+                        System.out.println("========================");
+                    }
+                }
             }
         }
     }
