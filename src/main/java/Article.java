@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Article {
@@ -16,11 +17,18 @@ public class Article {
 
     private int views;
 
+    private ArrayList<String> comments;
+
+    private  int likes;
+
     public Article(int id, String title, String content) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.date = new Date();
+        this.views = 0;
+        this.likes = 0;
+        this.comments = new ArrayList<>();
     }
 
     public String getTitle() {
@@ -60,5 +68,11 @@ public class Article {
 
     public int getViews() {
         return views;
+    }
+    public void addComment(String comment){
+        comments.add(comment);
+    }
+    public void like(){
+        likes++;
     }
 }
