@@ -86,7 +86,14 @@ public class Main {
 
             } else if (command.equals("delete")) {
                 System.out.print("삭제할 게시물 번호 : ");
+                int target = scan.nextInt();
+                articles.remove(target - 1);
+                System.out.println("삭제가 완료되었습니다.");
 
+                scan.nextLine();
+
+            } else if (command.equals("detail")){
+                System.out.print("상세보기 할 게시물 번호를 입력해주세요");
             }
         }
     }
