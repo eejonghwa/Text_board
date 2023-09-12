@@ -29,10 +29,10 @@ public class Main {
 
 
         Scanner scan = new Scanner(System.in); // 메모리 차지 때문에 밖에다 만드는게 좋음
-        ArrayList<String> titles = new ArrayList<>();
-        ArrayList<String> contents = new ArrayList<>();
+//        ArrayList<String> titles = new ArrayList<>();
+//        ArrayList<String> contents = new ArrayList<>();
 
-
+        ArrayList<Article> articles = new ArrayList<>();
         while (true) {
 
             System.out.print("명령어 : ");
@@ -42,21 +42,30 @@ public class Main {
 
                 System.out.println("프로그램을 종료합니다.");
                 break;
-            } else if (command.equals("add")) {
-                System.out.print("게시물 제목을 입력해주세요.");
-                titles.add(scan.nextLine());
 
-                System.out.print("게시물 내용을 입력해주세요.");
-                contents.add(scan.nextLine());
+            } else if (command.equals("add")) {
+                System.out.print("게시물 제목을 입력해주세요 :");
+                String title = scan.nextLine();
+
+                System.out.print("게시물 내용을 입력해주세요 :");
+                String content = scan.nextLine();
+
+                Article article = new Article(title, content);
+                articles.add(article);
+
 
                 System.out.println("게시물이 등록되었습니다.");
 
             } else if (command.equals("list")) {
-                for (int i = 0; i < titles.size(); i++) {
+                for (int i = 0; i < articles.size(); i++) {
+
+                    Article article = articles.get(i);
+
                     System.out.printf("번호 : %d\n", i + 1);
-                    System.out.printf("제목 : %s\n",titles.get(i));
+                    System.out.printf("제목 : %s\n", article.getTitle());
                     System.out.println("===============");
                 }
+
             } else if (command.equals("update")) {
                 System.out.print("수정할 게시물 번호를 입력해주세요 : ");
                 int target = scan.nextInt();
@@ -68,12 +77,15 @@ public class Main {
                 System.out.print("새로운 내용 : ");
                 String newContent = scan.nextLine();
 
-                titles.set(target - 1, newTitle);
-                contents.set(target - 1, newContent);
+                Article newArticle = new Article(newTitle, newContent);
 
-                System.out.println("게시물이 수정됐습니다.");
-            } else {
-                System.out.println("유효하지 않는 번호입니다.");
+                articles.set(target - 1, newArticle);
+
+                System.out.println("수정이 완료되었습니다.");
+
+
+            } else if (command.equals("delete")) {
+                System.out.print("삭제할 게시물 번호 : ");
 
             }
         }
