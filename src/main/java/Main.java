@@ -93,7 +93,17 @@ public class Main {
                 scan.nextLine();
 
             } else if (command.equals("detail")){
-                System.out.print("상세보기 할 게시물 번호를 입력해주세요");
+                System.out.print("상세보기 할 게시물 번호를 입력해주세요 : ");
+                int target = scan.nextInt();
+                scan.nextLine();
+
+                if (target < 1 || target > articles.size()){
+                    System.out.println("존재하지 않는 게시물 번호입니다 . ");
+                } else {
+                    Article article = articles.get(target - 1);
+                    System.out.printf("제목 : %s\n", article.getTitle());
+                    System.out.printf("내용 : %s\n", article.getContent());
+                }
             }
         }
     }
