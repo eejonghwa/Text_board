@@ -36,13 +36,15 @@ public class Main {
 
         ArrayList<Article> articles = new ArrayList<>();
 
-        Article testArticle1 = new Article("테스트 제목1", "테스트 내용 1");
-        Article testArticle2 = new Article("테스트 제목2", "테스트 내용 2");
-        Article testArticle3 = new Article("테스트 제목3", "테스트 내용 3");
+        int lastArticleId = 1;
 
-        articles.add(testArticle1);
-        articles.add(testArticle2);
-        articles.add(testArticle3);
+//        Article testArticle1 = new Article(1,"테스트 제목1", "테스트 내용 1");
+//        Article testArticle2 = new Article(2,"테스트 제목2", "테스트 내용 2");
+//        Article testArticle3 = new Article(3,"테스트 제목3", "테스트 내용 3");
+//
+//        articles.add(testArticle1);
+//        articles.add(testArticle2);
+//        articles.add(testArticle3);
 
         while (true) {
 
@@ -61,58 +63,73 @@ public class Main {
                 System.out.print("게시물 내용을 입력해주세요 :");
                 String content = scan.nextLine();
 
-                Article article = new Article(title, content);
+                Article article = new Article(lastArticleId, title, content);
                 articles.add(article);
 
 
                 System.out.println("게시물이 등록되었습니다.");
+                lastArticleId++;
 
             } else if (command.equals("list")) {
                 for (int i = 0; i < articles.size(); i++) {
 
                     Article article = articles.get(i);
 
-                    System.out.printf("번호 : %d\n", i + 1);
+                    System.out.printf("번호 : %d\n", article.getId());
                     System.out.printf("제목 : %s\n", article.getTitle());
                     System.out.println("===============");
                 }
 
             } else if (command.equals("update")) {
                 System.out.print("수정할 게시물 번호를 입력해주세요 : ");
-                int target = scan.nextInt();
+                int targetId = scan.nextInt();
 
                 scan.nextLine();
-                if (0 < target && target <= articles.size()) {
-                    System.out.print("새로운 제목 : ");
-                    String newTitle = scan.nextLine();
-                    System.out.print("새로운 내용 : ");
-                    String newContent = scan.nextLine();
 
-                    Article newArticle = new Article(newTitle, newContent);
+                boolean isExist = false;
 
-                    articles.set(target - 1, newArticle);
+                for (int i = 0; i < articles.size(); i++) {
+                    Article article = articles.get(i);
 
-                    System.out.println("수정이 완료되었습니다.");
-                } else {
+                    if (targetId == article.getId()) {
+                        System.out.print("새로운 제목 : ");
+                        String newTitle = scan.nextLine();
+                        System.out.print("새로운 내용 : ");
+                        String newContent = scan.nextLine();
+
+                        Article newArticle = new Article(targetId, newTitle, newContent);
+
+                        articles.set(i, newArticle);
+                        System.out.println("수정이 완료되었습니다.");
+                        isExist = true;
+                    }
+                }
+
+
+                if (isExist == false) {
                     System.out.println("없는 게시물입니다.");
                 }
 
             } else if (command.equals("delete")) {
                 System.out.print("삭제할 게시물 번호 : ");
-                int target = scan.nextInt();
+                int targetId = scan.nextInt();
 
                 scan.nextLine();
 
-                // index -> 0부터 시작하기 때문에 0보다 작으면 안됨
-                // 내가 가지고 있는 데이터의 개수 - 1 보다 크면 안됨
-                if (0 < target && target <= articles.size()) {
-                    articles.remove(target - 1);
-                    System.out.printf("%d번 게시물이 삭제되었습니다.\n", target);
-                } else {
-                    System.out.println("없는 게시물입니다.");
-                }
+                boolean isExist = false;
 
-            } else if (command.equals("detail")) {
+                for (int i = 0; i < articles.size(); i++) {
+                    Article article = articles.get(i);
+
+                    if (targetId == article.getId()) {
+                        articles.remove(i);
+                        System.out.printf("%d번 게시물이 삭제되었습니다.\n", targetId);
+
+                        isExist = true;
+                    }
+                }
+            }
+            else if (command.equals("detail")) {
                 System.out.print("상세보기 할 게시물 번호를 입력해주세요 : ");
                 int target = scan.nextInt();
                 scan.nextLine();
@@ -129,6 +146,8 @@ public class Main {
                 } else {
                     System.out.println("없는 게시물 입니다. ");
                 }
+            } else if (command.equals("search")) {
+                System.out.print("검색 키워드를 입력해주세요 : ");
             }
         }
     }

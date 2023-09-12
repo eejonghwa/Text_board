@@ -2,6 +2,8 @@ import java.util.Date;
 
 public class Article {
 
+    // 게시물 번호
+    private int id;
     // 제목
     private String title;
     // 내용
@@ -12,7 +14,8 @@ public class Article {
     // 조회수
     // ....
 
-    public Article(String title, String content) {
+    public Article(int id, String title, String content) {
+        this.id = id;
         this.title = title;
         this.content = content;
         this.date = new Date();
@@ -40,5 +43,12 @@ public class Article {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
