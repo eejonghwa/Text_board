@@ -72,6 +72,15 @@ public class Article {
     public void addComment(String comment){
         comments.add(comment);
     }
+
+    public ArrayList<String> getComments() {
+        return comments;
+    }
+
+    public void setComments(ArrayList<String> comments) {
+        this.comments = comments;
+    }
+
     public void like(){
         likes++;
     }

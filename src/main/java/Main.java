@@ -137,6 +137,13 @@ public class Main {
                         System.out.printf("등록날짜 : %s\n", formattedDate);
                         System.out.printf("조회수 : %d\n",article.getViews());
 
+                        // 댓글
+                        System.out.println("댓글:");
+                        ArrayList<String> comments = article.getComments();
+                        for (int i = 0; i < comments.size(); i++) {
+                            System.out.printf("%d. %s\n", i + 1, comments.get(i));
+                        }
+
 
                         // 상세보기 메뉴추가
                         System.out.println("==================");
