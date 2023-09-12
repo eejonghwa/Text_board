@@ -1,7 +1,9 @@
 import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
+import java.text.SimpleDateFormat;
 
 public class Main {
     public static void main(String[] args) {
@@ -71,38 +73,52 @@ public class Main {
                 int target = scan.nextInt();
 
                 scan.nextLine();
+                if (0 < target && target <= articles.size()) {
+                    System.out.print("새로운 제목 : ");
+                    String newTitle = scan.nextLine();
+                    System.out.print("새로운 내용 : ");
+                    String newContent = scan.nextLine();
 
-                System.out.print("새로운 제목 : ");
-                String newTitle = scan.nextLine();
-                System.out.print("새로운 내용 : ");
-                String newContent = scan.nextLine();
+                    Article newArticle = new Article(newTitle, newContent);
 
-                Article newArticle = new Article(newTitle, newContent);
+                    articles.set(target - 1, newArticle);
 
-                articles.set(target - 1, newArticle);
-
-                System.out.println("수정이 완료되었습니다.");
-
+                    System.out.println("수정이 완료되었습니다.");
+                } else {
+                    System.out.println("없는 게시물입니다.");
+                }
 
             } else if (command.equals("delete")) {
                 System.out.print("삭제할 게시물 번호 : ");
                 int target = scan.nextInt();
-                articles.remove(target - 1);
-                System.out.println("삭제가 완료되었습니다.");
 
                 scan.nextLine();
 
-            } else if (command.equals("detail")){
+                // index -> 0부터 시작하기 때문에 0보다 작으면 안됨
+                // 내가 가지고 있는 데이터의 개수 - 1 보다 크면 안됨
+                if (0 < target && target <= articles.size()) {
+                    articles.remove(target - 1);
+                    System.out.printf("%d번 게시물이 삭제되었습니다.\n", target);
+                } else {
+                    System.out.println("없는 게시물입니다.");
+                }
+
+            } else if (command.equals("detail")) {
                 System.out.print("상세보기 할 게시물 번호를 입력해주세요 : ");
                 int target = scan.nextInt();
                 scan.nextLine();
 
-                if (target < 1 || target > articles.size()){
-                    System.out.println("존재하지 않는 게시물 번호입니다 . ");
-                } else {
+                if  (0 < target && target <= articles.size()) {
                     Article article = articles.get(target - 1);
+
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+                    String formattedDate = dateFormat.format(article.getDate());
+
                     System.out.printf("제목 : %s\n", article.getTitle());
                     System.out.printf("내용 : %s\n", article.getContent());
+                    System.out.printf("등록날짜 : %s\n", formattedDate);
+                } else {
+                    System.out.println("없는 게시물 입니다. ");
                 }
             }
         }
