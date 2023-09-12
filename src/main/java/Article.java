@@ -14,6 +14,8 @@ public class Article {
     // 조회수
     // ....
 
+    private int views;
+
     public Article(int id, String title, String content) {
         this.id = id;
         this.title = title;
@@ -50,5 +52,13 @@ public class Article {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public void increaseViews(){
+        this.views++;
+    }
+
+    public int getViews() {
+        return views;
     }
 }

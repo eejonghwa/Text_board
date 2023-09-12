@@ -38,13 +38,13 @@ public class Main {
 
         int lastArticleId = 1;
 
-//        Article testArticle1 = new Article(1,"테스트 제목1", "테스트 내용 1");
-//        Article testArticle2 = new Article(2,"테스트 제목2", "테스트 내용 2");
-//        Article testArticle3 = new Article(3,"테스트 제목3", "테스트 내용 3");
-//
-//        articles.add(testArticle1);
-//        articles.add(testArticle2);
-//        articles.add(testArticle3);
+        Article testArticle1 = new Article(1,"테스트 제목1", "테스트 내용 1");
+        Article testArticle2 = new Article(2,"테스트 제목2", "테스트 내용 2");
+        Article testArticle3 = new Article(3,"테스트 제목3", "테스트 내용 3");
+
+        articles.add(testArticle1);
+        articles.add(testArticle2);
+        articles.add(testArticle3);
 
         while (true) {
 
@@ -85,7 +85,7 @@ public class Main {
                 String number = scan.nextLine();
                 try{
                     int targetId = Integer.parseInt(number);
-                    scan.nextLine();
+
                     boolean isExist = false;
 
                     for (int i = 0; i < articles.size(); i++) {
@@ -119,7 +119,7 @@ public class Main {
                 String number = scan.nextLine();
                 try{
                     int targetId = Integer.parseInt(number);
-                    scan.nextLine();
+
 
                     boolean isExist = false;
 
@@ -143,10 +143,12 @@ public class Main {
                 String number = scan.nextLine();
                 try {
                     int target = Integer.parseInt(number);
-                    scan.nextLine();
+
 
                     if (0 < target && target <= articles.size()) {
                         Article article = articles.get(target - 1);
+
+                        article.increaseViews();
 
                         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
                         String formattedDate = dateFormat.format(article.getDate());
@@ -154,6 +156,7 @@ public class Main {
                         System.out.printf("제목 : %s\n", article.getTitle());
                         System.out.printf("내용 : %s\n", article.getContent());
                         System.out.printf("등록날짜 : %s\n", formattedDate);
+                        System.out.printf("조회수 : %d\n",article.getViews());
                     } else {
                         System.out.println("없는 게시물 입니다. ");
                     }
