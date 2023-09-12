@@ -35,6 +35,15 @@ public class Main {
 //        ArrayList<String> contents = new ArrayList<>();
 
         ArrayList<Article> articles = new ArrayList<>();
+
+        Article testArticle1 = new Article("테스트 제목1", "테스트 내용 1");
+        Article testArticle2 = new Article("테스트 제목2", "테스트 내용 2");
+        Article testArticle3 = new Article("테스트 제목3", "테스트 내용 3");
+
+        articles.add(testArticle1);
+        articles.add(testArticle2);
+        articles.add(testArticle3);
+
         while (true) {
 
             System.out.print("명령어 : ");
@@ -108,7 +117,7 @@ public class Main {
                 int target = scan.nextInt();
                 scan.nextLine();
 
-                if  (0 < target && target <= articles.size()) {
+                if (0 < target && target <= articles.size()) {
                     Article article = articles.get(target - 1);
 
                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
