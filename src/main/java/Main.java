@@ -14,6 +14,7 @@ public class Main {
 //        ArrayList<String> contents = new ArrayList<>();
 
         ArrayList<Article> articles = new ArrayList<>();
+        ArrayList<UserInfo> userInfos = new ArrayList<>();
 
         int lastArticleId = 1;
 
@@ -211,6 +212,20 @@ public class Main {
                         System.out.println("========================");
                     }
                 }
+            } else if (command.equals("signup")){
+                System.out.println("==== 회원 가입을 진행합니다 ====");
+                System.out.print("아이디를 입력해주세요 : ");
+                String userId = scan.nextLine();
+                System.out.print("비밀번호를 입력해주세요 : ");
+                String userPassword = scan.nextLine();
+                System.out.print("닉네임을 입력해주세요 : ");
+                String nickname = scan.nextLine();
+                System.out.println("회원가입이 완료되었습니다.");
+
+                UserInfo userInfo = new UserInfo(userId, userPassword, nickname);
+                userInfos.add(userInfo);
+            }else if (command.equals("login")){
+
             }
         }
     }
