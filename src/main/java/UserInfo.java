@@ -1,22 +1,22 @@
 public class UserInfo {
-    private String id;
+    private String userId;
 
     private String password;
 
     private String nickname;
 
-    public UserInfo(String id, String password, String nickname){
-        this.id = id;
+    public UserInfo(String userId, String password, String nickname){
+        this.userId = userId;
         this.password = password;
         this.nickname = nickname;
     }
 
-    public String getId() {
-        return id;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getPassword() {

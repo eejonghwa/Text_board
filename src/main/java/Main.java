@@ -6,21 +6,22 @@ import java.util.Scanner;
 import java.text.SimpleDateFormat;
 
 public class Main {
+    static ArrayList<UserInfo> userInfos = new ArrayList<>();
+
     public static void main(String[] args) {
 
 
         Scanner scan = new Scanner(System.in); // 메모리 차지 때문에 밖에다 만드는게 좋음
+        ArrayList<Article> articles = new ArrayList<>();
 //        ArrayList<String> titles = new ArrayList<>();
 //        ArrayList<String> contents = new ArrayList<>();
 
-        ArrayList<Article> articles = new ArrayList<>();
-        ArrayList<UserInfo> userInfos = new ArrayList<>();
 
         int lastArticleId = 1;
 
-        Article testArticle1 = new Article(1,"테스트 제목1", "테스트 내용 1");
-        Article testArticle2 = new Article(2,"테스트 제목2", "테스트 내용 2");
-        Article testArticle3 = new Article(3,"테스트 제목3", "테스트 내용 3");
+        Article testArticle1 = new Article(1, "테스트 제목1", "테스트 내용 1");
+        Article testArticle2 = new Article(2, "테스트 제목2", "테스트 내용 2");
+        Article testArticle3 = new Article(3, "테스트 제목3", "테스트 내용 3");
 
         articles.add(testArticle1);
         articles.add(testArticle2);
@@ -63,7 +64,7 @@ public class Main {
             } else if (command.equals("update")) {
                 System.out.print("수정할 게시물 번호를 입력해주세요 : ");
                 String number = scan.nextLine();
-                try{
+                try {
                     int targetId = Integer.parseInt(number);
 
                     boolean isExist = false;
@@ -90,14 +91,14 @@ public class Main {
                         System.out.println("없는 게시물입니다.");
                     }
 
-                }catch (NumberFormatException e){
+                } catch (NumberFormatException e) {
                     System.out.println("숫자를 입력해주세요.");
                 }
 
             } else if (command.equals("delete")) {
                 System.out.print("삭제할 게시물 번호 : ");
                 String number = scan.nextLine();
-                try{
+                try {
                     int targetId = Integer.parseInt(number);
 
 
@@ -114,7 +115,7 @@ public class Main {
                         }
                     }
 
-                }catch (NumberFormatException e) {
+                } catch (NumberFormatException e) {
                     System.out.println("숫자를 입력해주세요.");
                 }
 
@@ -136,7 +137,7 @@ public class Main {
                         System.out.printf("제목 : %s\n", article.getTitle());
                         System.out.printf("내용 : %s\n", article.getContent());
                         System.out.printf("등록날짜 : %s\n", formattedDate);
-                        System.out.printf("조회수 : %d\n",article.getViews());
+                        System.out.printf("조회수 : %d\n", article.getViews());
 
                         // 댓글
                         System.out.println("댓글:");
@@ -152,7 +153,7 @@ public class Main {
 
                         int detailMenuChoice = Integer.parseInt(scan.nextLine());
 
-                        switch(detailMenuChoice){
+                        switch (detailMenuChoice) {
                             case 1:
                                 System.out.print("댓글 내용을 입력해주세요 : ");
                                 article.addComment(scan.nextLine());
@@ -185,10 +186,9 @@ public class Main {
                     }
 
 
-                }catch(NumberFormatException e){
+                } catch (NumberFormatException e) {
                     System.out.println("숫자를 입력해 주세요.");
                 }
-
 
 
             } else if (command.equals("search")) {
@@ -212,7 +212,7 @@ public class Main {
                         System.out.println("========================");
                     }
                 }
-            } else if (command.equals("signup")){
+            } else if (command.equals("signup")) {
                 System.out.println("==== 회원 가입을 진행합니다 ====");
                 System.out.print("아이디를 입력해주세요 : ");
                 String userId = scan.nextLine();
@@ -224,8 +224,30 @@ public class Main {
 
                 UserInfo userInfo = new UserInfo(userId, userPassword, nickname);
                 userInfos.add(userInfo);
-            }else if (command.equals("login")){
+            } else if (command.equals("login")) {
+                System.out.print("아이디: ");
+                String userId = scan.nextLine();
+                System.out.print("비밀번호: ");
+                String userPassword = scan.nextLine();
 
+                UserInfo userInfo = null;
+                for(UserInfo user : userInfos){
+                    if(user.getUserId().equals(userId)){
+                        userInfo = user;
+                        break;
+                    }
+                }
+
+
+                if (userInfo == null) {
+                    System.out.println("아이디를 찾을 수 없거나 잘못된 비밀번호입니다.");
+                } else {
+                    if (userPassword.equals(userInfo.getPassword())) {
+                        System.out.printf("%s님 환영합니다!\n", userInfo.getNickname());
+                    } else {
+                        System.out.println("아이디를 찾을 수 없거나 잘못된 비밀번호입니다.");
+                    }
+                }
             }
         }
     }
